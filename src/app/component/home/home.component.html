@@ -1,0 +1,9 @@
+<ul>
+    <li *ngFor="let post of postDisplayList" (click)="goToUserPost(post.userId)">
+        <b>UserId:</b><span> {{post.userId}}</span>
+    </li>
+</ul>
+<!-- <span><b>UserId: </b></span>
+<select>
+    <option *ngFor="let post of postDisplayList">{{post.userId}}</option>
+</select> -->

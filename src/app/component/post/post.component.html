@@ -1,0 +1,12 @@
+<ul>
+    <li *ngFor="let post of postList" (click)="goToPostAndComment(post.id)">
+        <b>Title: </b>
+        <span> {{post.title}}</span>
+        <span>
+            <br>
+            - {{post.body}}
+            <br>
+            <br>
+        </span>
+    </li>
+</ul>
