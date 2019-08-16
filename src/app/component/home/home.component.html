@@ -1,9 +1,19 @@
-<ul>
-    <li *ngFor="let post of postDisplayList" (click)="goToUserPost(post.userId)">
-        <b>UserId:</b><span> {{post.userId}}</span>
-    </li>
-</ul>
-<!-- <span><b>UserId: </b></span>
-<select>
-    <option *ngFor="let post of postDisplayList">{{post.userId}}</option>
-</select> -->
+<!-- <ul>
+  <li *ngFor="let user of userList" (click)="goToUserPost(user.id)">
+    <b>UserId:</b><span> {{ user.id }}</span>
+  </li>
+</ul> -->
+<span><b>UserId: </b></span>
+<select [(ngModel)]="selectedItem">
+  <option *ngFor="let user of userList">{{ user.id }}</option>
+</select>
+<button (click)="goToUserPost(selectedItem)"> GO!</button>
+<br />
+
+<div *ngFor="let user of userList">
+  <div *ngIf="selectedItem == user.id">
+    <span><b>Name: </b> {{ user.name }}</span>
+    <br />
+    <span><b>Email: </b> {{ user.email }}</span>
+  </div>
+</div>

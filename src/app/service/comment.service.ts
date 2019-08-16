@@ -1,25 +1,36 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 import { Comment } from '../model/comment.model';
-import { environment } from '../../environments/environment'
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommentService {
+  private url = environment.url + 'comments';
 
-  private url = environment.url + 'comments?postId='
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
+  // getAllCommentList(): Observable<Comment[]> {
+  //   return this.http.get<Comment[]>(this.url);
+  // }
 
-  getAllCommentList(): Observable<Comment[]> {
-    const url = `${environment.url}posts/1/comments`
-    return this.http.get<Comment[]>(url)
+  // getCommentByPostId(postId: number) {
+  //   const url = `${this.url}?postId=${postId}`;
+  //   return this.http.get<Comment[]>(url);
+  // }
+
+  getComment(postId: number): Observable<Comment[]> {
+    const url = `${this.url}?postId=${postId}`;
+    return this.http.get<Comment[]>(url);
+  }
+  addComment(comment: Comment): Observable<Comment[]> {
+    return this.http.post<Comment[]>(this.url, comment);
   }
 
-  getCommentByPostId(postId:number){
-    const url = `${this.url}${postId}`
-    return this.http.get<Comment[]>(url)
+  deleteComment(id: number) {
+    const url = `${this.url}/${id}`;
+    return this.http.delete(url);
   }
 }

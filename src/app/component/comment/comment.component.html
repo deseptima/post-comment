@@ -1,26 +1,16 @@
-Post
+<b>Comment</b><br /><br />
+<span>Name: </span><input type="text" value="test comment" #name /><br /><br />
+<span>Email: </span><input type="text" value="test@comment" #email /><br /><br />
+<span>Detail: </span><input type="text" value="this is test comment" #detail /><br /><br />
+<button (click)="addComment(name.value, email.value, detail.value)">Add comment</button>
 <ul>
-    <li *ngFor="let post of postList" (click)="goToPostAndComment(post.id)">
-        <b>Title: </b>
-        <span> {{post.title}}</span>
-        <span>
-            <br>
-            - {{post.body}}
-            <br>
-        </span>
-    </li>
-</ul>
-Comment
-<ul>
-    <li *ngFor="let comment of commentList">
-        <b>Name: </b>
-        <span>{{comment.name}} {{comment.email}}</span>
-        <span>
-            <br>
-            {{comment.body}}
-            <br>
-            <br>
-        </span>
-    </li>
-
+  <li *ngFor="let comment of commentList">
+    <b>Name: </b> <span> {{ comment.name }} </span>
+    <button (click)="deleteComment(comment.id)" style="float:right;"> X </button> <br />
+    <b>Email: </b><span> {{ comment.email }} </span> <br />
+    <span>
+      <b>Detail: </b> {{ comment.body }} <br />
+      <br />
+    </span>
+  </li>
 </ul>

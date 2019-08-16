@@ -1,0 +1,5 @@
+{
+    "vsprettier.useTsLint": true,
+    "vsprettier.singleQuote": true,
+    "vsprettier.htmlWhitespaceSensitivity": "strict"
+}

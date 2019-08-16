@@ -1,10 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { Post } from '../../model/post.model';
 import { PostService } from '../../service/post.service';
-import { Subscription } from 'rxjs';
-import { take } from 'rxjs/operators'
 
 @Component({
   selector: 'app-post',
@@ -12,37 +12,38 @@ import { take } from 'rxjs/operators'
   styleUrls: ['./post.component.scss']
 })
 export class PostComponent implements OnInit, OnDestroy {
+  private subscription: Subscription;
+  postList: Post[] = [];
+  userId: number;
 
-  private subscription: Subscription
-  postList: Post[] = []
-  userId: number
-
-  constructor(private postService: PostService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private postService: PostService, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
-    this.route.paramMap.subscribe(paramMap => {
-      this.userId = +paramMap.get('userId')
-    })
-
-    this.subscription = this.postService.getPostListByUserId(this.userId).subscribe(
-      postList => {
-        this.postList = postList
-      },
-      (error: HttpErrorResponse) => {
-        console.log('Error occurs');
-        console.log(error);
-      }
-    )
+    this.subscription = this.route.paramMap
+      .pipe(
+        switchMap(paramMap => {
+          this.userId = +paramMap.get('userId');
+          return this.postService.getPost(this.userId);
+        })
+      )
+      .subscribe(
+        postList => {
+          this.postList = postList;
+        },
+        (error: HttpErrorResponse) => {
+          console.log('Error occurs');
+          console.log(error);
+        }
+      );
   }
 
   ngOnDestroy() {
     if (this.subscription) {
-      this.subscription.unsubscribe()
+      this.subscription.unsubscribe();
     }
   }
 
   goToPostAndComment(postId: number) {
-    this.router.navigate(['/post/' + this.userId + '/' + postId])
+    this.router.navigate(['/comment/', postId]);
   }
-
 }
