@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, delay } from 'rxjs/operators';
 import { Post } from '../../model/post.model';
 import { PostService } from '../../service/post.service';
 
@@ -15,6 +15,7 @@ export class PostComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
   postList: Post[] = [];
   userId: number;
+  isActive = true;
 
   constructor(private postService: PostService, private route: ActivatedRoute, private router: Router) {}
 
@@ -24,11 +25,13 @@ export class PostComponent implements OnInit, OnDestroy {
         switchMap(paramMap => {
           this.userId = +paramMap.get('userId');
           return this.postService.getPost(this.userId);
-        })
+        }),
+        delay(500)
       )
       .subscribe(
         postList => {
           this.postList = postList;
+          this.isActive = false;
         },
         (error: HttpErrorResponse) => {
           console.log('Error occurs');
@@ -45,5 +48,11 @@ export class PostComponent implements OnInit, OnDestroy {
 
   goToPostAndComment(postId: number) {
     this.router.navigate(['/comment/', postId]);
+  }
+  nextId() {
+    this.router.navigate(['/post/', ++this.userId]);
+  }
+  prevId() {
+    this.router.navigate(['/post/', --this.userId]);
   }
 }

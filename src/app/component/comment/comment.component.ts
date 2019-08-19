@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { switchMap, take } from 'rxjs/operators';
+import { switchMap, take, delay } from 'rxjs/operators';
 import { Comment } from '../../model/comment.model';
 import { Post } from '../../model/post.model';
 import { CommentService } from '../../service/comment.service';
@@ -18,6 +18,7 @@ export class CommentComponent implements OnInit, OnDestroy {
   commentList: Comment[] = [];
   // userId: number;
   postId: number;
+  isActive = true;
 
   constructor(private commentService: CommentService, private route: ActivatedRoute) {}
 
@@ -27,11 +28,13 @@ export class CommentComponent implements OnInit, OnDestroy {
         switchMap(paramMap => {
           this.postId = +paramMap.get('postId');
           return this.commentService.getComment(this.postId);
-        })
+        }),
+        delay(500)
       )
       .subscribe(
         commentList => {
           this.commentList = commentList;
+          this.isActive = false;
         },
         (error: HttpErrorResponse) => {
           console.log('Error occurs');
@@ -64,7 +67,8 @@ export class CommentComponent implements OnInit, OnDestroy {
   }
 
   addComment(name: string, email: string, body: string) {
-    const newData = { postId: 0, id: 0, name, email, body };
+    const postId = this.commentList.find(item => item.postId === this.postId);
+    const newData = { postId: postId.postId, id: 0, name, email, body };
     this.commentService
       .addComment(newData)
       .pipe(take(1))

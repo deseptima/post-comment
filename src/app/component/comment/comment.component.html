@@ -1,14 +1,21 @@
-<b>Comment</b><br /><br />
-<span>Name: </span><input type="text" value="test comment" #name /><br /><br />
-<span>Email: </span><input type="text" value="test@comment" #email /><br /><br />
-<span>Detail: </span><input type="text" value="this is test comment" #detail /><br /><br />
-<button (click)="addComment(name.value, email.value, detail.value)">Add comment</button>
+<app-loadmask [active]="isActive"></app-loadmask>
+<div class="addComment">
+  <p>
+    <b>Comment</b><br /><br />
+    <span>Name: </span><input type="text" value="test comment" #name /><br /><br />
+    <span>Email: </span><input type="text" value="test@comment" #email /><br /><br />
+    <span>Detail: </span><input type="text" value="this is test comment" #detail /><br /><br />
+    <button (click)="addComment(name.value, email.value, detail.value)">Add comment</button>
+  </p>
+</div>
 <ul>
   <li *ngFor="let comment of commentList">
-    <b>Name: </b> <span> {{ comment.name }} </span>
-    <button (click)="deleteComment(comment.id)" style="float:right;"> X </button> <br />
-    <b>Email: </b><span> {{ comment.email }} </span> <br />
-    <span>
+    <br />
+    &nbsp;&nbsp;<b>Name: </b> <span> {{ comment.name }} </span>
+    <button (click)="deleteComment(comment.id)" style="float:right;"> <i class="material-icons">delete</i> </button>
+    <br />
+    &nbsp;&nbsp;<b>Email: </b><span> {{ comment.email }} </span> <br />
+    &nbsp;&nbsp;<span>
       <b>Detail: </b> {{ comment.body }} <br />
       <br />
     </span>

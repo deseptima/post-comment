@@ -4,6 +4,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { User } from '../../model/user.model';
 import { UserService } from '../../service/user.service';
 import { Subscription } from 'rxjs';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -14,19 +15,24 @@ export class HomeComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
   userList: User[] = [];
   selectedItem = 1;
+  isActive = true;
 
   constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit() {
-    this.subscription = this.userService.getUsers().subscribe(
-      userList => {
-        this.userList = userList;
-      },
-      (error: HttpErrorResponse) => {
-        console.log('Error occurs');
-        console.log(error);
-      }
-    );
+    this.subscription = this.userService
+      .getUsers()
+      .pipe(delay(500))
+      .subscribe(
+        userList => {
+          this.userList = userList;
+          this.isActive = false;
+        },
+        (error: HttpErrorResponse) => {
+          console.log('Error occurs');
+          console.log(error);
+        }
+      );
   }
 
   ngOnDestroy() {

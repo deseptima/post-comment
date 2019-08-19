@@ -1,4 +1,74 @@
 /* You can add global styles to this file, and also import other style files */
-ul{
-    list-style-type: none;
+$main-bg: #6078ff;
+$main-box-shadow: #888888;
+body {
+  background-color: #fcfcfc;
+}
+ul {
+  list-style-type: none;
+  :hover {
+    background-color: #f2f4ff;
+    border: solid 1px $main-bg;
+    box-shadow: 3px 3px 2px 2px $main-bg;
+    b,
+    span {
+      border: none;
+      box-shadow: none;
+    }
+    button,
+    i {
+      color: white;
+      border: none;
+      background-color: red;
+      :hover {
+        box-shadow: none;
+      }
+    }
+    div {
+      border: none;
+      box-shadow: none;
+    }
+  }
+  :active {
+    color: white;
+    background-color: $main-bg;
+    box-shadow: 3px 3px 2px 2px $main-bg;
+    transform: translateY(4px);
+  }
+}
+
+li {
+  border: solid 1px black;
+  border-radius: 9px;
+  margin-bottom: 1%;
+  box-shadow: 3px 3px $main-box-shadow;
+  cursor: pointer;
+}
+
+.pointer {
+  cursor: pointer;
+}
+.Home {
+  a {
+    color: black;
+  }
+  :hover {
+    color: $main-bg;
+  }
+}
+.addComment {
+  text-align: center;
+  border: solid 1px black;
+  border-radius: 9px;
+  margin-bottom: 1%;
+  box-shadow: 3px 3px $main-box-shadow;
+}
+li {
+  button {
+    border: solid 1px $main-bg;
+    border-radius: 5px;
+    margin-right: 1%;
+    background-color: white;
+    cursor: pointer;
+  }
 }

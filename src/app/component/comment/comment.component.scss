@@ -1,0 +1,16 @@
+$main-bg: #6078ff;
+
+ul {
+  list-style-type: none;
+  :active {
+    color: black;
+    background-color: #f2f4ff;
+    transform: none;
+  }
+}
+
+.button {
+  :hover {
+    background-color: blue;
+  }
+}

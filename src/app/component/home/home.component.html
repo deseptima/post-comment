@@ -1,19 +1,29 @@
-<!-- <ul>
-  <li *ngFor="let user of userList" (click)="goToUserPost(user.id)">
-    <b>UserId:</b><span> {{ user.id }}</span>
-  </li>
-</ul> -->
-<span><b>UserId: </b></span>
-<select [(ngModel)]="selectedItem">
-  <option *ngFor="let user of userList">{{ user.id }}</option>
-</select>
-<button (click)="goToUserPost(selectedItem)"> GO!</button>
+<app-loadmask [active]="isActive"></app-loadmask>
+<div style="text-align: center;">
+  <span><b>UserId: </b></span>
+  <select [(ngModel)]="selectedItem">
+    <option *ngFor="let user of userList">{{ user.id }}</option>
+  </select>
+  &nbsp;
+  <button (click)="goToUserPost(selectedItem)"> GO!</button>
+</div>
 <br />
 
-<div *ngFor="let user of userList">
-  <div *ngIf="selectedItem == user.id">
-    <span><b>Name: </b> {{ user.name }}</span>
-    <br />
-    <span><b>Email: </b> {{ user.email }}</span>
-  </div>
-</div>
+<ul *ngFor="let user of userList" (click)="goToUserPost(selectedItem)">
+  <li class="pointer" *ngIf="selectedItem == user.id" style="text-align: center;">
+    <div style="display:inline-block; text-align:left;">
+      <br />
+      <span><b>Username: </b> {{ user.username }}</span>
+      <br />
+      <span><b>Name: </b> {{ user.name }}</span>
+      <br />
+      <span><b>Email: </b> {{ user.email }}</span>
+      <br />
+      <span><b>Phone: </b> {{ user.phone }}</span>
+      <br />
+      <span><b>Website: </b> {{ user.website }}</span>
+      <br />
+      <br />
+    </div>
+  </li>
+</ul>

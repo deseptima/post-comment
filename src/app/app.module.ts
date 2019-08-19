@@ -8,9 +8,10 @@ import { AppComponent } from './app.component';
 import { CommentComponent } from './component/comment/comment.component';
 import { HomeComponent } from './component/home/home.component';
 import { PostComponent } from './component/post/post.component';
+import { LoadmaskComponent } from './component/loadmask/loadmask.component';
 
 @NgModule({
-  declarations: [AppComponent, CommentComponent, HomeComponent, PostComponent],
+  declarations: [AppComponent, CommentComponent, HomeComponent, PostComponent, LoadmaskComponent],
   imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent]
