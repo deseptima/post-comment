@@ -15,7 +15,7 @@ export class PostComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
   postList: Post[] = [];
   userId: number;
-  isActive = true;
+  isLoading = true;
 
   constructor(private postService: PostService, private route: ActivatedRoute, private router: Router) {}
 
@@ -26,12 +26,12 @@ export class PostComponent implements OnInit, OnDestroy {
           this.userId = +paramMap.get('userId');
           return this.postService.getPost(this.userId);
         }),
-        delay(500)
+        delay(200)
       )
       .subscribe(
         postList => {
           this.postList = postList;
-          this.isActive = false;
+          this.isLoading = false;
         },
         (error: HttpErrorResponse) => {
           console.log('Error occurs');
@@ -47,12 +47,14 @@ export class PostComponent implements OnInit, OnDestroy {
   }
 
   goToPostAndComment(postId: number) {
-    this.router.navigate(['/comment/', postId]);
+    this.router.navigate(['/comment', postId]);
   }
   nextId() {
-    this.router.navigate(['/post/', ++this.userId]);
+    this.isLoading = true;
+    this.router.navigate(['/post', ++this.userId]);
   }
   prevId() {
-    this.router.navigate(['/post/', --this.userId]);
+    this.isLoading = true;
+    this.router.navigate(['/post', --this.userId]);
   }
 }

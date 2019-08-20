@@ -1,5 +1,5 @@
-<app-loadmask [active]="isActive"></app-loadmask>
-<b>Post</b>
+<app-loadmask [active]="isLoading"></app-loadmask>
+<strong>Post Title</strong>
 <div style="float: right;">
   <button (click)="prevId()">Previous</button>
   &nbsp;
@@ -8,11 +8,6 @@
 <ul>
   <li *ngFor="let post of postList; let index; of: postList" (click)="goToPostAndComment(post.id)">
     <br />
-    &nbsp;&nbsp;<b>{{ index.id }}: </b> <span> {{ post.title }}</span>
-    &nbsp;&nbsp;<span>
-      <br />
-      &nbsp;&nbsp;- {{ post.body }} <br />
-      <br />
-    </span>
+    &nbsp;&nbsp;<strong>{{ index.id }}. Title: </strong> <span> {{ post.title }}</span>
   </li>
 </ul>

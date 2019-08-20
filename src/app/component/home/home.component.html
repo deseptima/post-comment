@@ -1,6 +1,6 @@
-<app-loadmask [active]="isActive"></app-loadmask>
+<app-loadmask [active]="isLoading"></app-loadmask>
 <div style="text-align: center;">
-  <span><b>UserId: </b></span>
+  <span><strong>UserId: </strong></span>
   <select [(ngModel)]="selectedItem">
     <option *ngFor="let user of userList">{{ user.id }}</option>
   </select>
@@ -13,15 +13,15 @@
   <li class="pointer" *ngIf="selectedItem == user.id" style="text-align: center;">
     <div style="display:inline-block; text-align:left;">
       <br />
-      <span><b>Username: </b> {{ user.username }}</span>
+      <span><strong>Username: </strong> {{ user.username }}</span>
       <br />
-      <span><b>Name: </b> {{ user.name }}</span>
+      <span><strong>Name: </strong> {{ user.name }}</span>
       <br />
-      <span><b>Email: </b> {{ user.email }}</span>
+      <span><strong>Email: </strong> {{ user.email }}</span>
       <br />
-      <span><b>Phone: </b> {{ user.phone }}</span>
+      <span><strong>Phone: </strong> {{ user.phone }}</span>
       <br />
-      <span><b>Website: </b> {{ user.website }}</span>
+      <span><strong>Website: </strong> {{ user.website }}</span>
       <br />
       <br />
     </div>

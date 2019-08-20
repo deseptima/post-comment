@@ -6,6 +6,7 @@ import { switchMap, take, delay } from 'rxjs/operators';
 import { Comment } from '../../model/comment.model';
 import { Post } from '../../model/post.model';
 import { CommentService } from '../../service/comment.service';
+import { PostService } from 'src/app/service/post.service';
 
 @Component({
   selector: 'app-comment',
@@ -16,25 +17,30 @@ export class CommentComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
   postList: Post[] = [];
   commentList: Comment[] = [];
-  // userId: number;
   postId: number;
-  isActive = true;
+  isLoading = true;
 
-  constructor(private commentService: CommentService, private route: ActivatedRoute) {}
+  constructor(private postService: PostService, private commentService: CommentService, private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.subscription = this.route.paramMap
       .pipe(
         switchMap(paramMap => {
           this.postId = +paramMap.get('postId');
-          return this.commentService.getComment(this.postId);
+          return this.postService.getPostByPostId(this.postId);
         }),
-        delay(500)
+        delay(200)
       )
       .subscribe(
-        commentList => {
-          this.commentList = commentList;
-          this.isActive = false;
+        postList => {
+          this.commentService
+            .getComment(this.postId)
+            .pipe(take(1))
+            .subscribe(commentList => {
+              this.commentList = commentList;
+            });
+          this.postList = postList;
+          this.isLoading = false;
         },
         (error: HttpErrorResponse) => {
           console.log('Error occurs');

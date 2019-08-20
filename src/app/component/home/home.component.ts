@@ -15,18 +15,18 @@ export class HomeComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
   userList: User[] = [];
   selectedItem = 1;
-  isActive = true;
+  isLoading = true;
 
   constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit() {
     this.subscription = this.userService
       .getUsers()
-      .pipe(delay(500))
+      .pipe(delay(200))
       .subscribe(
         userList => {
           this.userList = userList;
-          this.isActive = false;
+          this.isLoading = false;
         },
         (error: HttpErrorResponse) => {
           console.log('Error occurs');
@@ -42,6 +42,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   goToUserPost(userId: number) {
-    this.router.navigate(['/post/', userId]);
+    this.router.navigate(['/post', userId]);
   }
 }

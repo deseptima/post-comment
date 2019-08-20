@@ -12,15 +12,6 @@ export class CommentService {
 
   constructor(private http: HttpClient) {}
 
-  // getAllCommentList(): Observable<Comment[]> {
-  //   return this.http.get<Comment[]>(this.url);
-  // }
-
-  // getCommentByPostId(postId: number) {
-  //   const url = `${this.url}?postId=${postId}`;
-  //   return this.http.get<Comment[]>(url);
-  // }
-
   getComment(postId: number): Observable<Comment[]> {
     const url = `${this.url}?postId=${postId}`;
     return this.http.get<Comment[]>(url);

@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class LoadmaskComponent implements OnInit {
   // tslint:disable-next-line: no-input-rename
-  @Input('active') isActive: boolean;
+  @Input('active') isLoading: boolean;
 
   constructor() {}
 

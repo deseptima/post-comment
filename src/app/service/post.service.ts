@@ -12,14 +12,6 @@ export class PostService {
 
   constructor(private http: HttpClient) {}
 
-  getAllPostList(): Observable<Post[]> {
-    return this.http.get<Post[]>(this.url);
-  }
-
-  getPostListByUserId(userId: number) {
-    const url = `${this.url}?userId=${userId}`;
-    return this.http.get<Post[]>(url);
-  }
   getPost(userId?: number): Observable<Post[]> {
     if (userId) {
       const url = `${this.url}?userId=${userId}`;
@@ -27,5 +19,10 @@ export class PostService {
     } else {
       return this.http.get<Post[]>(this.url);
     }
+  }
+
+  getPostByPostId(postId: number) {
+    const url = `${this.url}?id=${postId}`;
+    return this.http.get<Post[]>(url);
   }
 }
